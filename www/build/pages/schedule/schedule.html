@@ -1,0 +1,110 @@
+<ion-navbar *navbar class="hide-border">
+  <button menuToggle>
+    <ion-icon name="menu" light></ion-icon>
+  </button>
+  <ion-title>Artikel</ion-title>
+  <ion-buttons end>
+    <button (click)="notif()">
+      <ion-icon name="notifications" light></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-toolbar><br>
+  <!--<ion-searchbar primary
+                 [(ngModel)]="queryText"
+                 (input)="updateSchedule()"
+                 placeholder="Cari Artikel">
+  </ion-searchbar>-->
+  <ion-list>
+    <ion-item>
+      <ion-label><ion-icon name="funnel"></ion-icon> Pilihan</ion-label>
+      <ion-select [(ngModel)]="month">
+        <ion-option value="00" checked="true">Topik</ion-option>
+        <ion-option value="01">January</ion-option>
+        <ion-option value="02">February</ion-option>
+        <ion-option value="03">March</ion-option>
+        <ion-option value="04">April</ion-option>
+        <ion-option value="05">May</ion-option>
+        <ion-option value="06">June</ion-option>
+        <ion-option value="07">July</ion-option>
+        <ion-option value="08">August</ion-option>
+        <ion-option value="09">September</ion-option>
+        <ion-option value="10">October</ion-option>
+        <ion-option value="11">November</ion-option>
+        <ion-option value="12">December</ion-option>
+      </ion-select>
+      <ion-select [(ngModel)]="year">
+        <ion-option value="99" checked="true">Komoditas</ion-option>
+        <ion-option>1989</ion-option>
+        <ion-option>1990</ion-option>
+        <ion-option>1991</ion-option>
+        <ion-option>1992</ion-option>
+        <ion-option>1993</ion-option>
+        <ion-option>1994</ion-option>
+        <ion-option>1995</ion-option>
+        <ion-option>1996</ion-option>
+        <ion-option>1997</ion-option>
+        <ion-option>1998</ion-option>
+        <ion-option>1999</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-toolbar>
+
+<ion-content class="schedule">
+  <ion-list>
+    <a ion-item *ngFor="#post of posts">
+      <ion-thumbnail item-left>
+        <img src="img/totoro.png">
+      </ion-thumbnail>
+      <h2 primary>{{post.judul_artikel}}</h2>
+      <p>{{post.nama_user_input}} || {{post.tanggal}}</p>
+      <p><ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: 2</ion-badge>
+      <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
+      </p>
+    </a>
+  </ion-list>
+  
+  
+  <ion-list [hidden]="shownSessions === 0">
+
+    <ion-item-group *ngFor="#group of groups" [hidden]="group.hide">
+
+      <ion-item-divider sticky>
+        {{group.time}}
+      </ion-item-divider>
+
+      <ion-item-sliding *ngFor="#session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase" [hidden]="session.hide">
+
+        <button ion-item (click)="goToSessionDetail(session)">
+          <h3>{{session.name}}</h3>
+          <p>
+            {{session.timeStart}} &mdash;
+            {{session.timeEnd}}:
+            {{session.location}}
+          </p>
+        </button>
+
+        <ion-item-options>
+          <button favorite (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
+            Favorite
+          </button>
+        </ion-item-options>
+
+      </ion-item-sliding>
+
+    </ion-item-group>
+
+  </ion-list>
+
+  <ion-list-header [hidden]="shownSessions > 0">
+      No Sessions Found
+  </ion-list-header>
+
+
+</ion-content>
+
+<button fab primary fab-bottom fab-right class="fab-footer" (click)="openMenu()">
+  <ion-icon name="create" is-active="false"></ion-icon>
+</button>

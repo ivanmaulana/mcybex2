@@ -1,0 +1,36 @@
+.speaker-list {
+
+  ion-card.speaker ion-card-header .item {
+    padding: 12px;
+  }
+
+  ion-card.speaker ion-card-content .list {
+    margin: 0;
+  }
+
+  ion-card.speaker ion-card-header,
+  ion-card.speaker ion-card-content,
+  ion-card.speaker ion-card-content .list ion-item-content, {
+    padding: 0;
+  }
+}
+
+.fab-footer {
+    z-index: 99;
+}
+
+.action-sheets-basic-page {
+  .ion-md-share {
+    color: #ED4248;
+  }
+  .ion-md-arrow-dropright-circle {
+    color: #508AE4;
+  }
+  .ion-md-heart-outline {
+    color: #31D55F;
+  }
+  .action-sheet-cancel ion-icon,
+  .action-sheet-destructive ion-icon {
+    color: #757575;
+  }
+}

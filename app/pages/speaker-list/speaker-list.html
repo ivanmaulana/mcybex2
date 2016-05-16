@@ -1,0 +1,28 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu" light></ion-icon>
+  </button>
+  <ion-title>Cari</ion-title>
+  <ion-buttons end>
+    <button (click)="notif()">
+      <ion-icon name="notifications" light></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-toolbar>
+  <ion-searchbar primary [(ngModel)]="searchQuery" (input)="getItems($event)" placeholder="Silahkan Cari Disini"></ion-searchbar>
+</ion-toolbar>
+
+<ion-content class="outer-content speaker-list action-sheets-basic-page">
+  <ion-list>
+    <ion-item *ngFor="#item of items">
+      {{ item }}
+    </ion-item>
+  </ion-list>
+  
+</ion-content>
+
+<button fab primary fab-bottom fab-right class="fab-footer" (click)="openMenu()">
+  <ion-icon name="create" is-active="false"></ion-icon>
+</button>

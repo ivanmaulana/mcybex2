@@ -1,0 +1,120 @@
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu" light></ion-icon>
+  </button>
+  <ion-title>Diskusi</ion-title>
+  <ion-buttons end>
+    <button (click)="notif()">
+      <ion-icon name="notifications" light></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-toolbar><br>
+<ion-list>
+    <ion-item>
+      <ion-label> Pilihan</ion-label>
+      <ion-select [(ngModel)]="month">
+        <ion-option value="00" checked="true">Topik</ion-option>
+        <ion-option value="01">January</ion-option>
+        <ion-option value="02">February</ion-option>
+        <ion-option value="03">March</ion-option>
+        <ion-option value="04">April</ion-option>
+        <ion-option value="05">May</ion-option>
+        <ion-option value="06">June</ion-option>
+        <ion-option value="07">July</ion-option>
+        <ion-option value="08">August</ion-option>
+        <ion-option value="09">September</ion-option>
+        <ion-option value="10">October</ion-option>
+        <ion-option value="11">November</ion-option>
+        <ion-option value="12">December</ion-option>
+      </ion-select>
+      <ion-select [(ngModel)]="year">
+        <ion-option value="99" checked="true">Komoditas</ion-option>
+        <ion-option>1989</ion-option>
+        <ion-option>1990</ion-option>
+        <ion-option>1991</ion-option>
+        <ion-option>1992</ion-option>
+        <ion-option>1993</ion-option>
+        <ion-option>1994</ion-option>
+        <ion-option>1995</ion-option>
+        <ion-option>1996</ion-option>
+        <ion-option>1997</ion-option>
+        <ion-option>1998</ion-option>
+        <ion-option>1999</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  
+</ion-toolbar>
+
+<ion-content>
+  
+<div padding class="about-info" text-center>
+  <a>
+    <div>
+      Hama Tanaman Pada Padi<br>
+    </div>
+    <img src="img/totoro.png">
+    <p>
+      Ionic Conference is a one-day conference featuring talks from the
+      Ionic team. It is focused on Ionic applications being built with
+      Ionic 2. This includes migrating apps from Ionic 1 to Ionic 2,
+      Angular concepts, Webpack, Sass, and many other technologies used
+      in Ionic 2. Tickets are completely sold out, and we’re expecting
+      more than 1000 developers – making this the largest Ionic
+      conference ever!
+    </p>
+      <ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: 2</ion-badge>
+      <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
+      <hr>
+  </a>
+</div>
+  
+  
+  <!--<div class="about-header">
+    <img src="img/ionic-logo-white.svg">
+  </div>-->
+  
+  <ion-list>
+    <a ion-item *ngFor="#post of posts">
+      <ion-thumbnail item-left>
+        <img src="img/totoro.png">
+      </ion-thumbnail>
+      <h2 primary>{{post.judul_artikel}}</h2>
+      <p>{{post.nama_user_input}} || {{post.tanggal}}</p>
+      <p><ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: 2</ion-badge>
+      <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
+      </p>
+    </a>
+  </ion-list>
+  
+  <div padding class="about-info">
+    <h4>Ionic Conference</h4>
+
+    <div>
+      <ion-icon name="calendar"></ion-icon>
+      05/17/2047
+    </div>
+
+    <div>
+      <ion-icon name="pin"></ion-icon>
+      Madison, WI
+    </div>
+
+    <p>
+      Ionic Conference is a one-day conference featuring talks from the
+      Ionic team. It is focused on Ionic applications being built with
+      Ionic 2. This includes migrating apps from Ionic 1 to Ionic 2,
+      Angular concepts, Webpack, Sass, and many other technologies used
+      in Ionic 2. Tickets are completely sold out, and we’re expecting
+      more than 1000 developers – making this the largest Ionic
+      conference ever!
+    </p>
+  </div>
+</ion-content>
+
+<button fab primary fab-bottom fab-right class="fab-footer" (click)="openMenu()">
+  <ion-icon name="create" is-active="false"></ion-icon>
+</button>
