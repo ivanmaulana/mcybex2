@@ -1,13 +1,49 @@
-<!--
-  Generated template for the TulisDiskusiPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-navbar *navbar>
-  <ion-title>tulisDiskusi</ion-title>
+<ion-navbar *navbar primary>
+  <ion-title>Tulis Diskusi</ion-title>
 </ion-navbar>
 
-<ion-content padding class="tulis-diskusi">
-  
+<ion-toolbar>
+  <ion-list><br>
+    <ion-item>
+      <ion-label> Pilihan</ion-label>
+      <ion-select [(ngModel)]="topik"  multiple="true">
+        <ion-option value="00" checked="true">Topik</ion-option>
+        <ion-option value="01">Komunikasi</ion-option>
+        <ion-option value="02">Agraria</ion-option>
+        <ion-option value="03">Pengembangan Masyarakat</ion-option>
+        <ion-option value="04">Budidaya</ion-option>
+        <ion-option value="05">Penyuluhan</ion-option>
+        <ion-option value="06">Tanah</ion-option>
+      </ion-select>
+      <ion-select [(ngModel)]="komoditas">
+        <ion-option value="99" checked="true">Komoditas</ion-option>
+        <ion-option>Padi</ion-option>
+        <ion-option>Kedelai</ion-option>
+        <ion-option>Hama</ion-option>
+        <ion-option>Sayuran</ion-option>
+        <ion-option>Tanaman Obat</ion-option>
+        <ion-option>Bunga</ion-option>
+        <ion-option>Pakan Ternak</ion-option>
+        <ion-option>Ikan</ion-option>
+        <ion-option>Tanaman Kayu</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+</ion-toolbar>
+
+<ion-content>
+  <br>
+  <div>
+    <ion-item>
+      <ion-input type="text" placeholder="Judul Diskusi"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="msg" placeholder="Ketik Pertanyaan Disini" rows="20"></ion-textarea>
+    </ion-item>
+  </div>
+  <br>
+  <div text-center>
+    <button outline><ion-icon name="camera"></ion-icon></button>
+    <button>Kirim Pertanyaan</button>
+  </div>
 </ion-content>

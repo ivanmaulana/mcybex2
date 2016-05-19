@@ -11,14 +11,9 @@
 </ion-navbar>
 
 <ion-toolbar><br>
-  <!--<ion-searchbar primary
-                 [(ngModel)]="queryText"
-                 (input)="updateSchedule()"
-                 placeholder="Cari Artikel">
-  </ion-searchbar>-->
   <ion-list>
     <ion-item>
-      <ion-label><ion-icon name="funnel"></ion-icon> Pilihan</ion-label>
+      <ion-label>Pilihan</ion-label>
       <ion-select [(ngModel)]="month">
         <ion-option value="00" checked="true">Topik</ion-option>
         <ion-option value="01">January</ion-option>
@@ -54,12 +49,12 @@
 
 <ion-content class="schedule">
   <ion-list>
-    <a ion-item *ngFor="#post of posts">
+    <a ion-item *ngFor="#post of posts" (click)="artikel()">
       <ion-thumbnail item-left>
         <img src="img/totoro.png">
       </ion-thumbnail>
       <h2 primary>{{post.judul_artikel}}</h2>
-      <p>{{post.nama_user_input}} || {{post.tanggal}}</p>
+      <p>{{post.nama_user_input}} | {{post.tanggal}}</p>
       <p><ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: 2</ion-badge>
       <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
       </p>

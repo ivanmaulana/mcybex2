@@ -50,33 +50,24 @@
 </ion-toolbar>
 
 <ion-content>
-  
-<div padding class="about-info" text-center>
-  <a>
-    <div>
-      Hama Tanaman Pada Padi<br>
-    </div>
-    <img src="img/totoro.png">
-    <p>
-      Ionic Conference is a one-day conference featuring talks from the
-      Ionic team. It is focused on Ionic applications being built with
-      Ionic 2. This includes migrating apps from Ionic 1 to Ionic 2,
-      Angular concepts, Webpack, Sass, and many other technologies used
-      in Ionic 2. Tickets are completely sold out, and we’re expecting
-      more than 1000 developers – making this the largest Ionic
-      conference ever!
+  <div padding-left (click)="diskusi()" *ngFor="#post of posts">
+    <p primary class="judul">
+      {{post.judul_artikel}}
     </p>
-      <ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: 2</ion-badge>
-      <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
-      <hr>
-  </a>
-</div>
-  
-  
-  <!--<div class="about-header">
-    <img src="img/ionic-logo-white.svg">
-  </div>-->
-  
+    <p grey>
+      Oleh : {{post.nama_user_input}}. Pada : {{post.tanggal}}
+    </p>
+    <img class="image" src="img/totoro.png" text-center>
+    <br>
+    <div class="text">
+      {{post.isi_artikel}}
+    </div>
+    <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon>  Lihat : 2</ion-badge>
+    <ion-badge item-right instagram> <ion-icon name="chatbubbles"></ion-icon>  Komentar : 2</ion-badge>
+    <ion-badge item-right primary><ion-icon name="snow"></ion-icon> Padi </ion-badge>
+  <hr>
+  </div>
+<!--  
   <ion-list>
     <a ion-item *ngFor="#post of posts">
       <ion-thumbnail item-left>
@@ -88,31 +79,7 @@
       <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
       </p>
     </a>
-  </ion-list>
-  
-  <div padding class="about-info">
-    <h4>Ionic Conference</h4>
-
-    <div>
-      <ion-icon name="calendar"></ion-icon>
-      05/17/2047
-    </div>
-
-    <div>
-      <ion-icon name="pin"></ion-icon>
-      Madison, WI
-    </div>
-
-    <p>
-      Ionic Conference is a one-day conference featuring talks from the
-      Ionic team. It is focused on Ionic applications being built with
-      Ionic 2. This includes migrating apps from Ionic 1 to Ionic 2,
-      Angular concepts, Webpack, Sass, and many other technologies used
-      in Ionic 2. Tickets are completely sold out, and we’re expecting
-      more than 1000 developers – making this the largest Ionic
-      conference ever!
-    </p>
-  </div>
+  </ion-list>-->
 </ion-content>
 
 <button fab primary fab-bottom fab-right class="fab-footer" (click)="openMenu()">

@@ -42,9 +42,11 @@
       <ion-list-header>
         Test
       </ion-list-header>
-      <button ion-item menuClose (click)="notif()">
-        
-        Notif
+      <button ion-item menuClose (click)="pakar()">
+        Pakar
+      </button>
+      <button ion-item menuClose (click)="kegiatan()">
+        Kegiatan
       </button>
     </ion-list>
   </ion-content>
@@ -53,4 +55,4 @@
 
 
 <!-- main navigation -->
-<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="true"></ion-nav>

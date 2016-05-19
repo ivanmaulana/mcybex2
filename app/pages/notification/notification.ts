@@ -7,13 +7,6 @@ import 'rxjs/add/operator/map';
 import {Http} from 'angular2/http';
 import { bootstrap } from "angular2/platform/browser";
 
-
-/*
-  Generated class for the NotificationPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/notification/notification.html',
 })

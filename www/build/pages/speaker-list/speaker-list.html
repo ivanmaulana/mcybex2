@@ -14,7 +14,14 @@
   <ion-searchbar primary [(ngModel)]="searchQuery" (input)="getItems($event)" placeholder="Silahkan Cari Disini"></ion-searchbar>
 </ion-toolbar>
 
+
+
 <ion-content class="outer-content speaker-list action-sheets-basic-page">
+  
+  <p padding (click)="notif()">
+      dawdwadwad dawdwadwad dawdwadwad dawdwadwad dawdwadwaddawd dawdwadwad dawdwadwad dawdwadwad
+  </p>
+  
   <ion-list>
     <ion-item *ngFor="#item of items">
       {{ item }}

@@ -3,6 +3,9 @@ import 'rxjs/add/operator/map';
 import {Http} from 'angular2/http';
 import {bootstrap} from "angular2/platform/browser";
 import {NotificationPage} from '../notification/notification';
+import {DiskusiPage} from '../diskusi/diskusi';
+import {TulisArtikelPage} from '../tulis-artikel/tulis-artikel';
+import {TulisDiskusiPage} from '../tulis-diskusi/tulis-diskusi';
 
 @Page({
   templateUrl: 'build/pages/about/about.html'
@@ -22,42 +25,34 @@ export class AboutPage {
     this.nav.push(NotificationPage);
   }
   
+  diskusi(){
+    this.nav.push(DiskusiPage);
+  }
+  
   openMenu() {
     let actionSheet = ActionSheet.create({
       title: 'Albums',
       cssClass: 'action-sheets-basic-page',
       buttons: [
         {
-          text: 'Delete',
+          text: 'Tulis Artikel',
           role: 'destructive',
-          icon: !this.platform.is('ios') ? 'trash' : null,
+          icon: !this.platform.is('ios') ? 'book' : null,
           handler: () => {
             console.log('Delete clicked');
+            this.nav.push(TulisArtikelPage);
           }
         },
         {
-          text: 'Share',
-          icon: !this.platform.is('ios') ? 'share' : null,
+          text: 'Tanya / Diskusi',
+          icon: !this.platform.is('ios') ? 'people' : null,
           handler: () => {
             console.log('Share clicked');
+            this.nav.push(TulisDiskusiPage);
           }
         },
         {
-          text: 'Play',
-          icon: !this.platform.is('ios') ? 'arrow-dropright-circle' : null,
-          handler: () => {
-            console.log('Play clicked');
-          }
-        },
-        {
-          text: 'Favorite',
-          icon: !this.platform.is('ios') ? 'heart-outline' : null,
-          handler: () => {
-            console.log('Favorite clicked');
-          }
-        },
-        {
-          text: 'Cancel',
+          text: 'Batal',
           role: 'cancel', // will always sort to be on the bottom
           icon: !this.platform.is('ios') ? 'close' : null,
           handler: () => {

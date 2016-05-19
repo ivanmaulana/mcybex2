@@ -1,13 +1,42 @@
-<!--
-  Generated template for the KegiatanPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-navbar *navbar>
-  <ion-title>kegiatan</ion-title>
+<ion-navbar *navbar primary>
+  <ion-title>Kegiatan</ion-title>
+  <ion-buttons end>
+  <button (click)="save()">
+      <ion-icon name="checkmark-circle" light></ion-icon>
+    </button>
+  </ion-buttons>
 </ion-navbar>
 
-<ion-content padding class="kegiatan">
-  
+<ion-content class="kegiatan">
+  <ion-card>
+    <img src="img/aaa.jpg"/>
+    <ion-card-content>
+      <h2 class="card-title">
+        Nine Inch Nails Live
+      </h2>
+      <p>
+        The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+      </p>
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col>
+        <button clear small danger>
+          <ion-icon name='star'></ion-icon>
+          Favorite
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button clear small danger>
+          <ion-icon name='musical-notes'></ion-icon>
+          Listen
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button clear small danger>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
 </ion-content>

@@ -8,6 +8,8 @@ import {LoginPage} from './pages/login/login';
 import {SignupPage} from './pages/signup/signup';
 import {TutorialPage} from './pages/tutorial/tutorial';
 import {NotificationPage} from './pages/notification/notification';
+import {PakarPage} from './pages/pakar/pakar';
+import {KegiatanPage} from './pages/kegiatan/kegiatan';
 
 interface PageObj {
   title: string;
@@ -30,10 +32,10 @@ class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageObj[] = [
-    { title: 'Schedule', component: TabsPage, icon: 'calendar' },
-    { title: 'Speakers', component: TabsPage, index: 1, icon: 'contacts' },
-    { title: 'Map', component: TabsPage, index: 2, icon: 'map' },
-    { title: 'About', component: TabsPage, index: 3, icon: 'information-circle' },
+    { title: 'Cari', component: TabsPage, icon: 'search' },
+    { title: 'Diskusi', component: TabsPage, index: 1, icon: 'people' },
+    { title: 'Artikel', component: TabsPage, index: 2, icon: 'book' },
+    { title: 'Artikel', component: TabsPage, index: 2, icon: 'book' }
   ];
   loggedInPages: PageObj[] = [
     { title: 'Logout', component: TabsPage, icon: 'log-out' }
@@ -100,7 +102,11 @@ class ConferenceApp {
     });
   }
   
-  notif(){
-    this.nav.push(NotificationPage);
+  pakar(){
+    this.nav.push(PakarPage);
+  }
+  
+  kegiatan(){
+    this.nav.push(KegiatanPage);
   }
 }
