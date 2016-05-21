@@ -14,6 +14,18 @@ export class AboutPage {
   actionSheet: ActionSheet;
   posts: any;
   
+  onPageLoaded() {
+    this.http.get('http://210.16.120.17/api/all_diskusi.php').map(res => res.json()).subscribe(data => {
+        this.posts = data;
+    }); 
+  }
+
+  onPageWillEnter(){
+    this.http.get('http://210.16.120.17/api/all_diskusi.php').map(res => res.json()).subscribe(data => {
+        this.posts = data;
+    }); 
+  }
+  
   constructor(public http: Http, public platform: Platform, private nav: NavController) {
     
     http.get('http://210.16.120.17/api/all_diskusi.php').map(res => res.json()).subscribe(data => {
@@ -25,8 +37,8 @@ export class AboutPage {
     this.nav.push(NotificationPage);
   }
   
-  diskusi(){
-    this.nav.push(DiskusiPage);
+  diskusi(diskusiId){
+    this.nav.push(DiskusiPage, diskusiId);
   }
   
   openMenu() {

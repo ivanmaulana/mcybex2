@@ -6,6 +6,7 @@ import {SessionDetailPage} from '../session-detail/session-detail';
 import 'rxjs/add/operator/map';
 import {Http} from 'angular2/http';
 import { bootstrap } from "angular2/platform/browser";
+import {DiskusiPage} from '../diskusi/diskusi';
 
 @Page({
   templateUrl: 'build/pages/notification/notification.html',
@@ -16,6 +17,10 @@ export class NotificationPage {
   constructor(public nav: NavController, private platform: Platform) {
     this.nav = nav;
     this.platform = platform;
+  }
+  
+  diskusi(){
+    this.nav.push(DiskusiPage);
   }
   
     

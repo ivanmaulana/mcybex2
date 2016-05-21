@@ -49,7 +49,7 @@
 
 <ion-content class="schedule">
   <ion-list>
-    <a ion-item *ngFor="#post of posts" (click)="artikel()">
+    <a ion-item *ngFor="#post of posts" (click)="goToSessionDetail(post.id_artikel)">
       <ion-thumbnail item-left>
         <img src="img/totoro.png">
       </ion-thumbnail>
@@ -61,7 +61,7 @@
     </a>
   </ion-list>
   
-  
+<!--  
   <ion-list [hidden]="shownSessions === 0">
 
     <ion-item-group *ngFor="#group of groups" [hidden]="group.hide">
@@ -95,7 +95,7 @@
 
   <ion-list-header [hidden]="shownSessions > 0">
       No Sessions Found
-  </ion-list-header>
+  </ion-list-header>-->
 
 
 </ion-content>

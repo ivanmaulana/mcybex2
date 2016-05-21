@@ -4,17 +4,5 @@
 </ion-navbar>
 
 <ion-content padding>
-  <h1>{{session.name}}</h1>
-
-  <h4 *ngFor="#speaker of session.speakers">
-    {{speaker.name}}
-  </h4>
-
-  <p>
-    {{session.timeStart}} - {{session.timeEnd}}
-  </p>
-
-  <p>{{session.location}}</p>
-
-  <p>{{session.description}}</p>
+  <h1>{{session}}</h1>
 </ion-content>

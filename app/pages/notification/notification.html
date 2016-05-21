@@ -2,32 +2,24 @@
   <ion-title>Pemberitahuan</ion-title>
 </ion-navbar>
 
-<ion-content padding class="notification">
-  <ion-item-group>
-
-      <ion-item-divider light>A</ion-item-divider>
-      <ion-item>Angola</ion-item>
-      <ion-item>Argentina</ion-item>
-
-      <ion-item-divider light>B</ion-item-divider>
-
-    </ion-item-group>
-    <ion-item-group>
-
-      <ion-item-divider light>A</ion-item-divider>
-      <ion-item>Angola</ion-item>
-      <ion-item>Argentina</ion-item>
-
-      <ion-item-divider light>B</ion-item-divider>
-
-    </ion-item-group>
-    <ion-item-group>
-
-      <ion-item-divider light>A</ion-item-divider>
-      <ion-item>Angola</ion-item>
-      <ion-item>Argentina</ion-item>
-
-      <ion-item-divider light>B</ion-item-divider>
-
-    </ion-item-group>
+<ion-content class="notification">
+  <div padding-left (click)="diskusi()">
+    <p class="text">
+      <b primary>Dr. Widodo</b> memberikan komentar pada diskusi anda:
+    </p>
+    <p grey class="text">
+      Dawdaw is an experiment to make a SaltStack custom renderer (the stuff that allows you to write your states in yaml/jinja2/mako/other) in an attempt to solve.
+    </p>
+  <hr>
+  </div>
+  
+  <div padding-left (click)="diskusi()">
+    <p class="text">
+      <b primary>Dr. Widodo</b> memberikan komentar pada artikel anda:
+    </p>
+    <p grey class="text">
+      Dawdaw is an experiment to make a SaltStack custom renderer (the stuff that allows you to write your states in yaml/jinja2/mako/other) in an attempt to solve.
+    </p>
+  <hr>
+  </div>
 </ion-content>

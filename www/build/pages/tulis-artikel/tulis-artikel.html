@@ -33,17 +33,19 @@
 
 <ion-content>
   <br>
+  {{response}}
+  
   <div>
     <ion-item>
-      <ion-input type="text" placeholder="Judul Artikel"></ion-input>
+      <ion-input [(ngModel)]="judul_artikel" type="text" placeholder="Judul Artikel"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-textarea [(ngModel)]="msg" placeholder="Ketik Artikel Disini" rows="20"></ion-textarea>
+      <ion-textarea [(ngModel)]="isi_artikel" placeholder="Ketik Artikel Disini" rows="20"></ion-textarea>
     </ion-item>
   </div>
   <br>
   <div text-center>
     <button outline><ion-icon name="camera"></ion-icon></button>
-    <button>Kirim Artikel</button>
+    <button (click)="kirim()">Kirim Artikel</button>
   </div>
 </ion-content>

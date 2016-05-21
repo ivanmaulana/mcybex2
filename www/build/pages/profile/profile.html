@@ -1,13 +1,56 @@
-<!--
-  Generated template for the ProfilePage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-navbar *navbar>
-  <ion-title>profile</ion-title>
+<ion-navbar *navbar primary>
+  <ion-title>Profile</ion-title>
 </ion-navbar>
 
-<ion-content padding class="profile">
+<ion-content class="profile">
+  
+  <ion-card>
+
+  <ion-item>
+    <div text-center>
+      <img class="profil" src="img/widodo.jpg">
+    </div><br>
+    <div text-center>
+    <h2 primary>DR. Widodo</h2>
+    <p>Institut Pertanian Bogor</p>
+    </div>
+  </ion-item>
+
+  <ion-list>
+    <ion-item>
+      <div item-left>
+        <ion-icon name="book" primary></ion-icon>
+      </div>
+      <div padding-left>
+        <h2 primary>Kepakaran</h2>
+        <p>Padi - Hama - Penyakit</p>
+      </div>
+    </ion-item>
+    <ion-item>
+      <div item-left>
+        <ion-icon name="book" primary></ion-icon>
+      </div>
+      <div padding-left>
+        <h2 primary>Institusi</h2>
+        <p>Institut Pertanian Bogor</p>
+      </div>
+    </ion-item>
+    <ion-item text-center>
+      <ion-grid>
+        <ion-row>
+          <ion-col width-50 text-center>
+            <h1 primary>50</h1>
+            <br> <p>Poin</p>
+          </ion-col>
+          <ion-col width-50 text-center>
+            <h1 primary>30</h1>
+            <br> <p>Tulisan / Diskusi</p>
+           </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-item>
+  </ion-list>
+
+</ion-card>
   
 </ion-content>

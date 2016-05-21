@@ -1,0 +1,87 @@
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu" light></ion-icon>
+  </button>
+  <ion-title>Diskusi</ion-title>
+  <ion-buttons end>
+    <button (click)="notif()">
+      <ion-icon name="notifications" light></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-toolbar><br>
+<ion-list>
+    <ion-item>
+      <ion-label> Pilihan</ion-label>
+      <ion-select [(ngModel)]="month">
+        <ion-option value="00" checked="true">Topik</ion-option>
+        <ion-option value="01">January</ion-option>
+        <ion-option value="02">February</ion-option>
+        <ion-option value="03">March</ion-option>
+        <ion-option value="04">April</ion-option>
+        <ion-option value="05">May</ion-option>
+        <ion-option value="06">June</ion-option>
+        <ion-option value="07">July</ion-option>
+        <ion-option value="08">August</ion-option>
+        <ion-option value="09">September</ion-option>
+        <ion-option value="10">October</ion-option>
+        <ion-option value="11">November</ion-option>
+        <ion-option value="12">December</ion-option>
+      </ion-select>
+      <ion-select [(ngModel)]="year">
+        <ion-option value="99" checked="true">Komoditas</ion-option>
+        <ion-option>1989</ion-option>
+        <ion-option>1990</ion-option>
+        <ion-option>1991</ion-option>
+        <ion-option>1992</ion-option>
+        <ion-option>1993</ion-option>
+        <ion-option>1994</ion-option>
+        <ion-option>1995</ion-option>
+        <ion-option>1996</ion-option>
+        <ion-option>1997</ion-option>
+        <ion-option>1998</ion-option>
+        <ion-option>1999</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  
+</ion-toolbar>
+
+<ion-content>
+  <div padding-left (click)="diskusi()" *ngFor="#post of posts">
+    <p primary class="judul">
+      {{post.judul_artikel}}
+    </p>
+    <p grey>
+      Oleh : {{post.nama_user_input}}. Pada : {{post.tanggal}}
+    </p>
+    <img class="image" src="img/totoro.png" text-center>
+    <br>
+    <div class="text">
+      {{post.isi_artikel}}
+    </div>
+    <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon>  Lihat : 2</ion-badge>
+    <ion-badge item-right instagram> <ion-icon name="chatbubbles"></ion-icon>  Komentar : 2</ion-badge>
+    <ion-badge item-right primary><ion-icon name="snow"></ion-icon> Padi </ion-badge>
+  <hr>
+  </div>
+<!--  
+  <ion-list>
+    <a ion-item *ngFor="#post of posts">
+      <ion-thumbnail item-left>
+        <img src="img/totoro.png">
+      </ion-thumbnail>
+      <h2 primary>{{post.judul_artikel}}</h2>
+      <p>{{post.nama_user_input}} || {{post.tanggal}}</p>
+      <p><ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: 2</ion-badge>
+      <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
+      </p>
+    </a>
+  </ion-list>-->
+</ion-content>
+
+<button fab primary fab-bottom fab-right class="fab-footer" (click)="openMenu()">
+  <ion-icon name="create" is-active="false"></ion-icon>
+</button>

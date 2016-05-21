@@ -1,42 +1,66 @@
 <ion-navbar *navbar primary>
   <ion-title>Kegiatan</ion-title>
-  <ion-buttons end>
-  <button (click)="save()">
-      <ion-icon name="checkmark-circle" light></ion-icon>
-    </button>
-  </ion-buttons>
 </ion-navbar>
 
 <ion-content class="kegiatan">
+  
   <ion-card>
-    <img src="img/aaa.jpg"/>
+    <button ion-item (click)="detail()">
     <ion-card-content>
-      <h2 class="card-title">
-        Nine Inch Nails Live
+      <h2 class="card-title" primary>
+        Seminar Menuju Swasembada Pangan 2017
       </h2>
-      <p>
-        The most popular industrial group ever, and largely responsible for bringing the music to a mass audience.
+      <p grey>
+        Oleh : Institut Pertanian Bogor
       </p>
     </ion-card-content>
     <ion-row no-padding>
       <ion-col>
-        <button clear small danger>
-          <ion-icon name='star'></ion-icon>
-          Favorite
-        </button>
-      </ion-col>
-      <ion-col text-center>
-        <button clear small danger>
-          <ion-icon name='musical-notes'></ion-icon>
-          Listen
-        </button>
-      </ion-col>
-      <ion-col text-right>
-        <button clear small danger>
-          <ion-icon name='share-alt'></ion-icon>
-          Share
+        <button clear small primary>
+          <ion-icon name="home"></ion-icon>
+          Aula Dirjen Hortikultura
         </button>
       </ion-col>
     </ion-row>
+    <ion-row no-padding>
+      <ion-col text-left>
+        <button clear small primary>
+          <ion-icon name="calendar"></ion-icon>
+          3 Juni 2015
+        </button>
+      </ion-col>
+    </ion-row>
+    </button>
+  </ion-card>
+  
+  
+  <ion-card>
+    <button ion-item (click)="detail()">
+      <img src="img/aaa.jpg"/>
+    <ion-card-content>
+      <h2 class="card-title" primary>
+        Seminar Menuju Swasembada Pangan 2017
+      </h2>
+      <p grey>
+        Oleh : Institut Pertanian Bogor
+      </p>
+    </ion-card-content>
+    <ion-row no-padding>
+      <ion-col>
+        <button clear small primary>
+          <ion-icon name="home"></ion-icon>
+          Aula Dirjen Hortikultura
+        </button>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col text-left>
+        <button clear small primary>
+          <ion-icon name="calendar"></ion-icon>
+          3 Juni 2015
+        </button>
+      </ion-col>
+    </ion-row>
+    </button>
   </ion-card>
 </ion-content>

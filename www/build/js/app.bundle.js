@@ -17,7 +17,6 @@ var user_data_1 = require('./providers/user-data');
 var tabs_1 = require('./pages/tabs/tabs');
 var login_1 = require('./pages/login/login');
 var signup_1 = require('./pages/signup/signup');
-var tutorial_1 = require('./pages/tutorial/tutorial');
 var pakar_1 = require('./pages/pakar/pakar');
 var kegiatan_1 = require('./pages/kegiatan/kegiatan');
 var ConferenceApp = (function () {
@@ -31,7 +30,6 @@ var ConferenceApp = (function () {
         this.appPages = [
             { title: 'Cari', component: tabs_1.TabsPage, icon: 'search' },
             { title: 'Diskusi', component: tabs_1.TabsPage, index: 1, icon: 'people' },
-            { title: 'Artikel', component: tabs_1.TabsPage, index: 2, icon: 'book' },
             { title: 'Artikel', component: tabs_1.TabsPage, index: 2, icon: 'book' }
         ];
         this.loggedInPages = [
@@ -41,7 +39,7 @@ var ConferenceApp = (function () {
             { title: 'Login', component: login_1.LoginPage, icon: 'log-in' },
             { title: 'Signup', component: signup_1.SignupPage, icon: 'person-add' }
         ];
-        this.rootPage = tutorial_1.TutorialPage;
+        this.rootPage = tabs_1.TabsPage;
         this.loggedIn = false;
         // Call any initial plugins when ready
         platform.ready().then(function () {
@@ -106,7 +104,7 @@ var ConferenceApp = (function () {
     return ConferenceApp;
 }());
 
-},{"./pages/kegiatan/kegiatan":5,"./pages/login/login":6,"./pages/pakar/pakar":9,"./pages/signup/signup":13,"./pages/tabs/tabs":15,"./pages/tutorial/tutorial":18,"./providers/conference-data":19,"./providers/user-data":20,"angular2/core":23,"ionic-angular":354,"ionic-native":376}],2:[function(require,module,exports){
+},{"./pages/kegiatan/kegiatan":6,"./pages/login/login":7,"./pages/pakar/pakar":10,"./pages/signup/signup":14,"./pages/tabs/tabs":16,"./providers/conference-data":19,"./providers/user-data":20,"angular2/core":23,"ionic-angular":354,"ionic-native":376}],2:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -123,6 +121,7 @@ var http_1 = require('angular2/http');
 var notification_1 = require('../notification/notification');
 var diskusi_1 = require('../diskusi/diskusi');
 var tulis_artikel_1 = require('../tulis-artikel/tulis-artikel');
+var tulis_diskusi_1 = require('../tulis-diskusi/tulis-diskusi');
 var AboutPage = (function () {
     function AboutPage(http, platform, nav) {
         var _this = this;
@@ -133,11 +132,23 @@ var AboutPage = (function () {
             _this.posts = data;
         });
     }
+    AboutPage.prototype.onPageLoaded = function () {
+        var _this = this;
+        this.http.get('http://210.16.120.17/api/all_diskusi.php').map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
+    };
+    AboutPage.prototype.onPageWillEnter = function () {
+        var _this = this;
+        this.http.get('http://210.16.120.17/api/all_diskusi.php').map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
+    };
     AboutPage.prototype.notif = function () {
         this.nav.push(notification_1.NotificationPage);
     };
-    AboutPage.prototype.diskusi = function () {
-        this.nav.push(diskusi_1.DiskusiPage);
+    AboutPage.prototype.diskusi = function (diskusiId) {
+        this.nav.push(diskusi_1.DiskusiPage, diskusiId);
     };
     AboutPage.prototype.openMenu = function () {
         var _this = this;
@@ -159,6 +170,7 @@ var AboutPage = (function () {
                     icon: !this.platform.is('ios') ? 'people' : null,
                     handler: function () {
                         console.log('Share clicked');
+                        _this.nav.push(tulis_diskusi_1.TulisDiskusiPage);
                     }
                 },
                 {
@@ -183,7 +195,7 @@ var AboutPage = (function () {
 }());
 exports.AboutPage = AboutPage;
 
-},{"../diskusi/diskusi":4,"../notification/notification":8,"../tulis-artikel/tulis-artikel":16,"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],3:[function(require,module,exports){
+},{"../diskusi/diskusi":4,"../notification/notification":9,"../tulis-artikel/tulis-artikel":17,"../tulis-diskusi/tulis-diskusi":18,"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],3:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -196,9 +208,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 require('rxjs/add/operator/map');
+var http_1 = require('angular2/http');
 var ArtikelPage = (function () {
-    function ArtikelPage(nav) {
+    function ArtikelPage(http, nav, navParams) {
+        var _this = this;
+        this.http = http;
         this.nav = nav;
+        this.navParams = navParams;
+        this.id = navParams.data;
+        http.get('http://210.16.120.17/api/artikel_b.php?idartikel=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
     }
     ArtikelPage.prototype.diskusi = function () {
     };
@@ -206,13 +226,13 @@ var ArtikelPage = (function () {
         ionic_angular_1.Page({
             templateUrl: 'build/pages/artikel/artikel.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [http_1.Http, ionic_angular_1.NavController, ionic_angular_1.NavParams])
     ], ArtikelPage);
     return ArtikelPage;
 }());
 exports.ArtikelPage = ArtikelPage;
 
-},{"ionic-angular":354,"rxjs/add/operator/map":436}],4:[function(require,module,exports){
+},{"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],4:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -225,12 +245,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 require('rxjs/add/operator/map');
+var http_1 = require('angular2/http');
 var DiskusiPage = (function () {
-    function DiskusiPage(nav, platform) {
+    function DiskusiPage(http, nav, navParams) {
+        var _this = this;
+        this.http = http;
         this.nav = nav;
-        this.platform = platform;
-        this.nav = nav;
-        this.platform = platform;
+        this.navParams = navParams;
+        this.id = navParams.data;
+        http.get('http://210.16.120.17/api/artikel_b.php?idartikel=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
     }
     DiskusiPage.prototype.diskusi = function () {
     };
@@ -238,13 +263,13 @@ var DiskusiPage = (function () {
         ionic_angular_1.Page({
             templateUrl: 'build/pages/diskusi/diskusi.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.Platform])
+        __metadata('design:paramtypes', [http_1.Http, ionic_angular_1.NavController, ionic_angular_1.NavParams])
     ], DiskusiPage);
     return DiskusiPage;
 }());
 exports.DiskusiPage = DiskusiPage;
 
-},{"ionic-angular":354,"rxjs/add/operator/map":436}],5:[function(require,module,exports){
+},{"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -257,16 +282,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 /*
-  Generated class for the KegiatanPage page.
+  Generated class for the KegiatanDetailPage page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
+var KegiatanDetailPage = (function () {
+    function KegiatanDetailPage(nav) {
+        this.nav = nav;
+    }
+    KegiatanDetailPage = __decorate([
+        ionic_angular_1.Page({
+            templateUrl: 'build/pages/kegiatan-detail/kegiatan-detail.html',
+        }), 
+        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+    ], KegiatanDetailPage);
+    return KegiatanDetailPage;
+}());
+exports.KegiatanDetailPage = KegiatanDetailPage;
+
+},{"ionic-angular":354}],6:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ionic_angular_1 = require('ionic-angular');
+var kegiatan_detail_1 = require('../kegiatan-detail/kegiatan-detail');
 var KegiatanPage = (function () {
     function KegiatanPage(nav) {
         this.nav = nav;
     }
-    KegiatanPage.prototype.save = function () {
+    KegiatanPage.prototype.detail = function () {
+        this.nav.push(kegiatan_detail_1.KegiatanDetailPage);
     };
     KegiatanPage = __decorate([
         ionic_angular_1.Page({
@@ -278,7 +331,7 @@ var KegiatanPage = (function () {
 }());
 exports.KegiatanPage = KegiatanPage;
 
-},{"ionic-angular":354}],6:[function(require,module,exports){
+},{"../kegiatan-detail/kegiatan-detail":5,"ionic-angular":354}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -320,7 +373,7 @@ var LoginPage = (function () {
 }());
 exports.LoginPage = LoginPage;
 
-},{"../../providers/user-data":20,"../signup/signup":13,"../tabs/tabs":15,"ionic-angular":354}],7:[function(require,module,exports){
+},{"../../providers/user-data":20,"../signup/signup":14,"../tabs/tabs":16,"ionic-angular":354}],8:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -372,7 +425,7 @@ var MapPage = (function () {
 }());
 exports.MapPage = MapPage;
 
-},{"../../providers/conference-data":19,"ionic-angular":354}],8:[function(require,module,exports){
+},{"../../providers/conference-data":19,"ionic-angular":354}],9:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -385,6 +438,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 require('rxjs/add/operator/map');
+var diskusi_1 = require('../diskusi/diskusi');
 var NotificationPage = (function () {
     function NotificationPage(nav, platform) {
         this.nav = nav;
@@ -392,6 +446,9 @@ var NotificationPage = (function () {
         this.nav = nav;
         this.platform = platform;
     }
+    NotificationPage.prototype.diskusi = function () {
+        this.nav.push(diskusi_1.DiskusiPage);
+    };
     NotificationPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/notification/notification.html',
@@ -402,7 +459,37 @@ var NotificationPage = (function () {
 }());
 exports.NotificationPage = NotificationPage;
 
-},{"ionic-angular":354,"rxjs/add/operator/map":436}],9:[function(require,module,exports){
+},{"../diskusi/diskusi":4,"ionic-angular":354,"rxjs/add/operator/map":436}],10:[function(require,module,exports){
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var ionic_angular_1 = require('ionic-angular');
+var profile_1 = require('../profile/profile');
+var PakarPage = (function () {
+    function PakarPage(nav) {
+        this.nav = nav;
+    }
+    PakarPage.prototype.profile = function () {
+        this.nav.push(profile_1.ProfilePage);
+    };
+    PakarPage = __decorate([
+        ionic_angular_1.Page({
+            templateUrl: 'build/pages/pakar/pakar.html',
+        }), 
+        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+    ], PakarPage);
+    return PakarPage;
+}());
+exports.PakarPage = PakarPage;
+
+},{"../profile/profile":11,"ionic-angular":354}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -415,26 +502,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 /*
-  Generated class for the PakarPage page.
+  Generated class for the ProfilePage page.
 
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
-var PakarPage = (function () {
-    function PakarPage(nav) {
+var ProfilePage = (function () {
+    function ProfilePage(nav) {
         this.nav = nav;
     }
-    PakarPage = __decorate([
+    ProfilePage = __decorate([
         ionic_angular_1.Page({
-            templateUrl: 'build/pages/pakar/pakar.html',
+            templateUrl: 'build/pages/profile/profile.html',
         }), 
         __metadata('design:paramtypes', [ionic_angular_1.NavController])
-    ], PakarPage);
-    return PakarPage;
+    ], ProfilePage);
+    return ProfilePage;
 }());
-exports.PakarPage = PakarPage;
+exports.ProfilePage = ProfilePage;
 
-},{"ionic-angular":354}],10:[function(require,module,exports){
+},{"ionic-angular":354}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -491,7 +578,7 @@ var ScheduleFilterPage = (function () {
 }());
 exports.ScheduleFilterPage = ScheduleFilterPage;
 
-},{"../../providers/conference-data":19,"ionic-angular":354}],11:[function(require,module,exports){
+},{"../../providers/conference-data":19,"ionic-angular":354}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -506,7 +593,6 @@ var ionic_angular_1 = require('ionic-angular');
 var conference_data_1 = require('../../providers/conference-data');
 var user_data_1 = require('../../providers/user-data');
 var schedule_filter_1 = require('../schedule-filter/schedule-filter');
-var session_detail_1 = require('../session-detail/session-detail');
 require('rxjs/add/operator/map');
 var http_1 = require('angular2/http');
 var notification_1 = require('../notification/notification');
@@ -529,15 +615,29 @@ var SchedulePage = (function () {
         this.shownSessions = [];
         this.groups = [];
         this.updateSchedule();
+        this.onPageLoaded();
+        this.onPageWillEnter();
         http.get('http://210.16.120.17/api/all_artikel.php').map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.posts = data;
         });
     }
+    SchedulePage.prototype.onPageLoaded = function () {
+        var _this = this;
+        this.http.get('http://210.16.120.17/api/all_artikel.php').map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
+    };
+    SchedulePage.prototype.onPageWillEnter = function () {
+        var _this = this;
+        this.http.get('http://210.16.120.17/api/all_artikel.php').map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
+    };
     SchedulePage.prototype.notif = function () {
         this.nav.push(notification_1.NotificationPage);
     };
-    SchedulePage.prototype.artikel = function () {
-        this.nav.push(artikel_1.ArtikelPage);
+    SchedulePage.prototype.artikel = function (artikelId) {
+        this.nav.push(artikel_1.ArtikelPage, artikelId);
     };
     SchedulePage.prototype.onPageDidEnter = function () {
         this.app.setTitle('Schedule');
@@ -561,9 +661,7 @@ var SchedulePage = (function () {
         });
     };
     SchedulePage.prototype.goToSessionDetail = function (sessionData) {
-        // go to the session detail page
-        // and pass in the session data
-        this.nav.push(session_detail_1.SessionDetailPage, sessionData);
+        this.nav.push(artikel_1.ArtikelPage, sessionData);
     };
     SchedulePage.prototype.addFavorite = function (slidingItem, sessionData) {
         var _this = this;
@@ -659,34 +757,7 @@ var SchedulePage = (function () {
 }());
 exports.SchedulePage = SchedulePage;
 
-},{"../../providers/conference-data":19,"../../providers/user-data":20,"../artikel/artikel":3,"../notification/notification":8,"../schedule-filter/schedule-filter":10,"../session-detail/session-detail":12,"../tulis-artikel/tulis-artikel":16,"../tulis-diskusi/tulis-diskusi":17,"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],12:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ionic_angular_1 = require('ionic-angular');
-var SessionDetailPage = (function () {
-    function SessionDetailPage(navParams) {
-        this.navParams = navParams;
-        this.session = navParams.data;
-    }
-    SessionDetailPage = __decorate([
-        ionic_angular_1.Page({
-            templateUrl: 'build/pages/session-detail/session-detail.html'
-        }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavParams])
-    ], SessionDetailPage);
-    return SessionDetailPage;
-}());
-exports.SessionDetailPage = SessionDetailPage;
-
-},{"ionic-angular":354}],13:[function(require,module,exports){
+},{"../../providers/conference-data":19,"../../providers/user-data":20,"../artikel/artikel":3,"../notification/notification":9,"../schedule-filter/schedule-filter":12,"../tulis-artikel/tulis-artikel":17,"../tulis-diskusi/tulis-diskusi":18,"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],14:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -724,7 +795,7 @@ var SignupPage = (function () {
 }());
 exports.SignupPage = SignupPage;
 
-},{"../../providers/user-data":20,"../tabs/tabs":15,"ionic-angular":354}],14:[function(require,module,exports){
+},{"../../providers/user-data":20,"../tabs/tabs":16,"ionic-angular":354}],15:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -853,7 +924,7 @@ var SpeakerListPage = (function () {
 }());
 exports.SpeakerListPage = SpeakerListPage;
 
-},{"../../providers/conference-data":19,"../notification/notification":8,"../tulis-artikel/tulis-artikel":16,"../tulis-diskusi/tulis-diskusi":17,"ionic-angular":354}],15:[function(require,module,exports){
+},{"../../providers/conference-data":19,"../notification/notification":9,"../tulis-artikel/tulis-artikel":17,"../tulis-diskusi/tulis-diskusi":18,"ionic-angular":354}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -888,7 +959,7 @@ var TabsPage = (function () {
 }());
 exports.TabsPage = TabsPage;
 
-},{"../about/about":2,"../map/map":7,"../schedule/schedule":11,"../speaker-list/speaker-list":14,"ionic-angular":354}],16:[function(require,module,exports){
+},{"../about/about":2,"../map/map":8,"../schedule/schedule":13,"../speaker-list/speaker-list":15,"ionic-angular":354}],17:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -900,27 +971,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ionic_angular_1 = require('ionic-angular');
-/*
-  Generated class for the TulisArtikelPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+require('rxjs/add/operator/map');
+var http_1 = require('angular2/http');
 var TulisArtikelPage = (function () {
-    function TulisArtikelPage(nav) {
+    function TulisArtikelPage(http, nav) {
+        this.http = http;
         this.nav = nav;
+        this.response = 'test';
     }
+    TulisArtikelPage.prototype.kirim = function (http) {
+        var _this = this;
+        this.creds = JSON.stringify({ isi_artikel: this.isi_artikel, judul_artikel: this.judul_artikel });
+        this.http.post("http://210.16.120.17/api/tulis_artikel.php", this.creds)
+            .subscribe(function (data) {
+            _this.response = data._body;
+        });
+    };
     TulisArtikelPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/tulis-artikel/tulis-artikel.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [http_1.Http, ionic_angular_1.NavController])
     ], TulisArtikelPage);
     return TulisArtikelPage;
 }());
 exports.TulisArtikelPage = TulisArtikelPage;
 
-},{"ionic-angular":354}],17:[function(require,module,exports){
+},{"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],18:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -932,87 +1009,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ionic_angular_1 = require('ionic-angular');
-/*
-  Generated class for the TulisDiskusiPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+require('rxjs/add/operator/map');
+var http_1 = require('angular2/http');
 var TulisDiskusiPage = (function () {
-    function TulisDiskusiPage(nav) {
+    function TulisDiskusiPage(http, nav) {
+        this.http = http;
         this.nav = nav;
     }
+    TulisDiskusiPage.prototype.kirim = function (http) {
+        var _this = this;
+        this.creds = JSON.stringify({ isi_diskusi: this.isi_diskusi, judul_diskusi: this.judul_diskusi });
+        this.http.post("http://210.16.120.17/api/tulis_diskusi.php", this.creds)
+            .subscribe(function (data) {
+            _this.response = data._body;
+        });
+    };
     TulisDiskusiPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/tulis-diskusi/tulis-diskusi.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [http_1.Http, ionic_angular_1.NavController])
     ], TulisDiskusiPage);
     return TulisDiskusiPage;
 }());
 exports.TulisDiskusiPage = TulisDiskusiPage;
 
-},{"ionic-angular":354}],18:[function(require,module,exports){
-"use strict";
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var ionic_angular_1 = require('ionic-angular');
-var tabs_1 = require('../tabs/tabs');
-var TutorialPage = (function () {
-    function TutorialPage(nav, menu) {
-        this.nav = nav;
-        this.menu = menu;
-        this.showSkip = true;
-        this.slides = [
-            {
-                title: "Welcome to <b>ICA</b>",
-                description: "The <b>Ionic Conference App</b> is a practical preview of the Ionic Framework in action, and a demonstration of proper code use.",
-                image: "img/cybex.png",
-            },
-            {
-                title: "What is Ionic?",
-                description: "<b>Ionic Framework</b> is an open source SDK that enables developers to build high quality mobile apps with web technologies like HTML, CSS, and JavaScript.",
-                image: "img/cybex.png",
-            },
-            {
-                title: " What is Ionic Platform?",
-                description: "The <b>Ionic Platform</b> is a cloud platform for managing and scaling Ionic apps with integrated services like push notifications, native builds, user auth, and live updating.",
-                image: "img/cybex.png",
-            }
-        ];
-    }
-    TutorialPage.prototype.startApp = function () {
-        this.nav.push(tabs_1.TabsPage);
-    };
-    TutorialPage.prototype.onSlideChangeStart = function (slider) {
-        this.showSkip = !slider.isEnd;
-    };
-    TutorialPage.prototype.onPageDidEnter = function () {
-        // the root left menu should be disabled on the tutorial page
-        this.menu.enable(false);
-    };
-    TutorialPage.prototype.onPageWillLeave = function () {
-        // enable the root left menu when leaving the tutorial page
-        this.menu.enable(true);
-    };
-    TutorialPage = __decorate([
-        ionic_angular_1.Page({
-            templateUrl: 'build/pages/tutorial/tutorial.html'
-        }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.MenuController])
-    ], TutorialPage);
-    return TutorialPage;
-}());
-exports.TutorialPage = TutorialPage;
-
-},{"../tabs/tabs":15,"ionic-angular":354}],19:[function(require,module,exports){
+},{"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],19:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
