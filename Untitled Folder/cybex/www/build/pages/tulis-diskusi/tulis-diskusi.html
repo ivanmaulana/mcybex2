@@ -35,15 +35,15 @@
   <br>
   <div>
     <ion-item>
-      <ion-input type="text" placeholder="Judul Diskusi"></ion-input>
+      <ion-input [(ngModel)]="judul_diskusi"  type="text" placeholder="Judul Diskusi"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-textarea [(ngModel)]="msg" placeholder="Ketik Pertanyaan Disini" rows="20"></ion-textarea>
+      <ion-textarea [(ngModel)]="isi_diskusi" placeholder="Ketik Pertanyaan Disini" rows="20"></ion-textarea>
     </ion-item>
   </div>
   <br>
   <div text-center>
     <button outline><ion-icon name="camera"></ion-icon></button>
-    <button>Kirim Pertanyaan</button>
+    <button (click)="kirim()">Kirim Pertanyaan</button>
   </div>
 </ion-content>

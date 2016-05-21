@@ -50,7 +50,7 @@
 </ion-toolbar>
 
 <ion-content>
-  <div padding-left (click)="diskusi()" *ngFor="#post of posts">
+  <div padding-left (click)="diskusi(post.id_artikel)" *ngFor="#post of posts">
     <p primary class="judul">
       {{post.judul_artikel}}
     </p>

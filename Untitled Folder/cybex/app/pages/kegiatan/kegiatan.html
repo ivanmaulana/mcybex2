@@ -3,8 +3,9 @@
 </ion-navbar>
 
 <ion-content class="kegiatan">
+  
   <ion-card>
-    <img src="img/aaa.jpg"/>
+    <button ion-item (click)="detail()">
     <ion-card-content>
       <h2 class="card-title" primary>
         Seminar Menuju Swasembada Pangan 2017
@@ -29,19 +30,19 @@
         </button>
       </ion-col>
     </ion-row>
+    </button>
   </ion-card>
   
+  
   <ion-card>
-    <img src="img/aaa.jpg"/>
+    <button ion-item (click)="detail()">
+      <img src="img/aaa.jpg"/>
     <ion-card-content>
-      <h2 class="card-title">
+      <h2 class="card-title" primary>
         Seminar Menuju Swasembada Pangan 2017
       </h2>
       <p grey>
         Oleh : Institut Pertanian Bogor
-      </p>
-      <p>
-        Dalam rangka mendukung gerakan Swasembada Pangan, Kami Rumah Menanam Indonesia akan mengadakan :
       </p>
     </ion-card-content>
     <ion-row no-padding>
@@ -51,12 +52,15 @@
           Aula Dirjen Hortikultura
         </button>
       </ion-col>
-      <ion-col text-center>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col text-left>
         <button clear small primary>
           <ion-icon name="calendar"></ion-icon>
           3 Juni 2015
         </button>
       </ion-col>
     </ion-row>
+    </button>
   </ion-card>
 </ion-content>

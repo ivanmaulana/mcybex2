@@ -9,16 +9,15 @@
 
 <ion-content class="diskusi">
   <img src="img/aaa.jpg">
-  
-  <div padding-left>
+  <div padding-left *ngFor="#post of posts">
     <h3 primary>
-      Judul
+      {{post.judul_artikel}}
     </h3>
     <p grey>
-      Oleh : Pak Mujiono. Pada 18 menit yang lalu.
+      Oleh : {{post.nama_user_input}}. Pada 18 menit yang lalu.
     </p>
     <p class="text">
-      pertumbuhan anakan padi disawah didesa randuati, kab. Pasuruan sangat lambat dan tidak bisa lebat. faktor apa yang menyebabkan? bagaimana cara untuk mengatasinya?
+      {{post.isi_artikel}}
     </p>
     <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon>  Lihat : 2</ion-badge>
     <ion-badge item-right instagram> <ion-icon name="chatbubbles"></ion-icon>  Komentar : 2</ion-badge>
@@ -32,7 +31,6 @@
   
   <div>
     <ion-card>
-      <img src="img/aaa.jpg">
       <ion-card-header class="midnight">
         Pak Junaidi <span class="grey"> - 30 menit yang lalu</span>
       </ion-card-header>

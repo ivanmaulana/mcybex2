@@ -1,11 +1,6 @@
 import {Page, NavController} from 'ionic-angular';
+import {KegiatanDetailPage} from '../kegiatan-detail/kegiatan-detail';
 
-/*
-  Generated class for the KegiatanPage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Page({
   templateUrl: 'build/pages/kegiatan/kegiatan.html',
 })
@@ -15,7 +10,7 @@ export class KegiatanPage {
     
   }
   
-  save(){
-    
+  detail(){
+    this.nav.push(KegiatanDetailPage);
   }
 }

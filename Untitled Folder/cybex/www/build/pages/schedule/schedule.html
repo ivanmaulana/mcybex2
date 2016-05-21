@@ -49,7 +49,7 @@
 
 <ion-content class="schedule">
   <ion-list>
-    <a ion-item *ngFor="#post of posts" (click)="artikel()">
+    <a ion-item *ngFor="#post of posts" (click)="goToSessionDetail(post.id_artikel)">
       <ion-thumbnail item-left>
         <img src="img/totoro.png">
       </ion-thumbnail>

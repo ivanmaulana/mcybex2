@@ -24,6 +24,18 @@ export class SchedulePage {
   groups = [];
   posts: any;
 
+  onPageLoaded() {
+    this.http.get('http://210.16.120.17/api/all_artikel.php').map(res => res.json()).subscribe(data => {
+        this.posts = data;
+    }); 
+  }
+
+  onPageWillEnter(){
+    this.http.get('http://210.16.120.17/api/all_artikel.php').map(res => res.json()).subscribe(data => {
+        this.posts = data;
+    }); 
+  }
+
   constructor(
     public http: Http,
     public platform: Platform,
@@ -34,6 +46,9 @@ export class SchedulePage {
   ) {
     this.updateSchedule();
     
+    this.onPageLoaded();
+    this.onPageWillEnter();
+    
     http.get('http://210.16.120.17/api/all_artikel.php').map(res => res.json()).subscribe(data => {
         this.posts = data;
     }); 
@@ -43,8 +58,8 @@ export class SchedulePage {
     this.nav.push(NotificationPage);
   }
   
-  artikel(){
-    this.nav.push(ArtikelPage);
+  artikel(artikelId){
+    this.nav.push(ArtikelPage, artikelId);
   }
   
   onPageDidEnter() {
@@ -72,9 +87,7 @@ export class SchedulePage {
   }
 
   goToSessionDetail(sessionData) {
-    // go to the session detail page
-    // and pass in the session data
-    this.nav.push(SessionDetailPage, sessionData);
+    this.nav.push(ArtikelPage, sessionData);
   }
 
   addFavorite(slidingItem: ItemSliding, sessionData) {
