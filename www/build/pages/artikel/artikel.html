@@ -16,28 +16,42 @@
     <p grey>
       Oleh : {{post.nama_user_input}}. Pada 18 menit yang lalu.
     </p>
-    <p class="text">
-      {{post.isi_artikel}}
+    <p class="text" [innerHTML]=post.isi_artikel>
     </p>
-    <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon>  Lihat : 2</ion-badge>
-    <ion-badge item-right instagram> <ion-icon name="chatbubbles"></ion-icon>  Komentar : 2</ion-badge>
+    <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon>  Lihat : {{post.total_baca}}</ion-badge>
+    <ion-badge item-right instagram> <ion-icon name="chatbubbles"></ion-icon>  Komentar : {{post.total_komentar}}</ion-badge>
     <ion-badge item-right primary><ion-icon name="snow"></ion-icon> Padi </ion-badge>
   </div>
   <hr>
-  
-  <p class="judul" padding-left instagram>
-      Komentar :
+
+  <p class="judul" padding-left instagram *ngIf="status==true">
+      Tanggapan :
   </p>
-  
-  <div>
+
+  <div *ngFor="#comment of comments">
     <ion-card>
       <ion-card-header class="midnight">
-        Pak Junaidi <span class="grey"> - 30 menit yang lalu</span>
+        {{comment.nama_user}} <span class="grey"> - {{comment.tanggal_komentar}}</span>
       </ion-card-header>
-      <ion-card-content>
-        The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
+      <ion-card-content [innerHTML]=comment.isi_komentar>
       </ion-card-content>
     </ion-card>
   </div>
-  
+
+  <hr />
+  <p class="judul" padding-left instagram>
+      Tulis Komentar Anda Disini
+  </p>
+  <ion-card>
+    <ion-item>
+      <ion-textarea [(ngModel)]="isi_komentar" placeholder="Ketik Komentar Disini" rows="10"></ion-textarea>
+    </ion-item>
+  </ion-card>
+  <div text-center>
+    <button outline><ion-icon name="camera"></ion-icon></button>
+    <button (click)="kirim()">Kirim</button>
+  </div>
+  <br />
+  <br />
+
 </ion-content>

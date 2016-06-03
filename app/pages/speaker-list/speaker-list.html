@@ -11,25 +11,42 @@
 </ion-navbar>
 
 <ion-toolbar>
-  <ion-searchbar primary [(ngModel)]="searchQuery" (input)="getItems($event)" placeholder="Silahkan Cari Disini"></ion-searchbar>
+  <ion-searchbar primary [(ngModel)]="searchQuery" (search)="getItems($event)" placeholder="Silahkan Cari Disini"></ion-searchbar>
 </ion-toolbar>
 
 
 
 <ion-content class="outer-content speaker-list action-sheets-basic-page">
-  
+
   <!--<p padding (click)="notif()">
       dawdwadwad dawdwadwad dawdwadwad dawdwadwad dawdwadwaddawd dawdwadwad dawdwadwad dawdwadwad
   </p>-->
-  
-  <img src="img/ipb.png">
-  
-  <!--<ion-list>
+
+  <!-- <img src="img/ipb.png"> -->
+
+  <!-- <ion-list>
     <ion-item *ngFor="#item of items">
       {{ item }}
     </ion-item>
-  </ion-list>-->
-  
+  </ion-list> -->
+  <div padding-left (click)="diskusi(post.id_artikel)" *ngFor="#post of posts">
+    <p primary class="judul">
+      {{post.judul_artikel}}
+    </p>
+    <p grey>
+      Oleh : {{post.nama_user_input}}. Pada : {{post.tanggal}}
+    </p>
+    <!-- <img class="image" src="img/totoro.png" text-center>
+    <br> -->
+    <div class="text" [innerHTML]=post.isi_artikel>
+    </div>
+    <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon>  Lihat : {{post.total_baca}}</ion-badge>
+    <ion-badge item-right instagram> <ion-icon name="chatbubbles"></ion-icon>  Komentar : {{post.total_komentar}}</ion-badge>
+    <ion-badge item-right primary><ion-icon name="snow"></ion-icon> Padi </ion-badge>
+  <hr>
+  </div>
+
+
 </ion-content>
 
 <button fab primary fab-bottom fab-right class="fab-footer" (click)="openMenu()">

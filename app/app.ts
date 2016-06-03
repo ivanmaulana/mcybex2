@@ -32,16 +32,17 @@ class ConferenceApp {
   // the left menu only works after login
   // the login page disables the left menu
   appPages: PageObj[] = [
-    { title: 'Cari', component: TabsPage, icon: 'search' },
+
     { title: 'Diskusi', component: TabsPage, index: 1, icon: 'people' },
-    { title: 'Artikel', component: TabsPage, index: 2, icon: 'book' }
+    { title: 'Artikel', component: TabsPage, index: 2, icon: 'book' },
+    { title: 'Cari', component: TabsPage, icon: 'search' }
   ];
   loggedInPages: PageObj[] = [
     { title: 'Logout', component: TabsPage, icon: 'log-out' }
   ];
   loggedOutPages: PageObj[] = [
-    { title: 'Login', component: LoginPage, icon: 'log-in' },
-    { title: 'Signup', component: SignupPage, icon: 'person-add' }
+    { title: 'Masuk', component: LoginPage, icon: 'log-in' },
+    { title: 'Daftar', component: SignupPage, icon: 'person-add' }
   ];
   rootPage: any = TabsPage;
   loggedIn = false;
@@ -100,11 +101,11 @@ class ConferenceApp {
       this.loggedIn = false;
     });
   }
-  
+
   pakar(){
     this.nav.push(PakarPage);
   }
-  
+
   kegiatan(){
     this.nav.push(KegiatanPage);
   }

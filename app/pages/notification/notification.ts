@@ -12,17 +12,17 @@ import {DiskusiPage} from '../diskusi/diskusi';
   templateUrl: 'build/pages/notification/notification.html',
 })
 export class NotificationPage {
-  
-  
+
+
   constructor(public nav: NavController, private platform: Platform) {
     this.nav = nav;
     this.platform = platform;
   }
-  
-  diskusi(){
-    this.nav.push(DiskusiPage);
+
+  diskusi(diskusiId){
+    this.nav.push(DiskusiPage, diskusiId);
   }
-  
-    
-  
+
+
+
 }

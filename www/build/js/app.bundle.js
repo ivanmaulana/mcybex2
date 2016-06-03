@@ -28,16 +28,16 @@ var ConferenceApp = (function () {
         // the left menu only works after login
         // the login page disables the left menu
         this.appPages = [
-            { title: 'Cari', component: tabs_1.TabsPage, icon: 'search' },
             { title: 'Diskusi', component: tabs_1.TabsPage, index: 1, icon: 'people' },
-            { title: 'Artikel', component: tabs_1.TabsPage, index: 2, icon: 'book' }
+            { title: 'Artikel', component: tabs_1.TabsPage, index: 2, icon: 'book' },
+            { title: 'Cari', component: tabs_1.TabsPage, icon: 'search' }
         ];
         this.loggedInPages = [
             { title: 'Logout', component: tabs_1.TabsPage, icon: 'log-out' }
         ];
         this.loggedOutPages = [
-            { title: 'Login', component: login_1.LoginPage, icon: 'log-in' },
-            { title: 'Signup', component: signup_1.SignupPage, icon: 'person-add' }
+            { title: 'Masuk', component: login_1.LoginPage, icon: 'log-in' },
+            { title: 'Daftar', component: signup_1.SignupPage, icon: 'person-add' }
         ];
         this.rootPage = tabs_1.TabsPage;
         this.loggedIn = false;
@@ -216,11 +216,27 @@ var ArtikelPage = (function () {
         this.nav = nav;
         this.navParams = navParams;
         this.id = navParams.data;
+        this.status = false;
         http.get('http://210.16.120.17/api/artikel_b.php?idartikel=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.posts = data;
         });
+        http.get('http://210.16.120.17/api/komentar.php?idartikel=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.comments = data;
+            if (_this.comments != false) {
+                _this.status = true;
+            }
+        });
     }
     ArtikelPage.prototype.diskusi = function () {
+    };
+    ArtikelPage.prototype.kirim = function (http) {
+        var _this = this;
+        this.creds = JSON.stringify({ isi_komentar: this.isi_komentar, id_artikel: this.id });
+        this.http.post("http://210.16.120.17/api/tulis_komentar.php", this.creds)
+            .subscribe(function (data) {
+            _this.response = data._body;
+            _this.nav.pop();
+        });
     };
     ArtikelPage = __decorate([
         ionic_angular_1.Page({
@@ -253,11 +269,27 @@ var DiskusiPage = (function () {
         this.nav = nav;
         this.navParams = navParams;
         this.id = navParams.data;
+        this.status = false;
         http.get('http://210.16.120.17/api/artikel_b.php?idartikel=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
             _this.posts = data;
         });
+        http.get('http://210.16.120.17/api/komentar.php?idartikel=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.comments = data;
+            if (_this.comments != false) {
+                _this.status = true;
+            }
+        });
     }
     DiskusiPage.prototype.diskusi = function () {
+    };
+    DiskusiPage.prototype.kirim = function (http) {
+        var _this = this;
+        this.creds = JSON.stringify({ isi_komentar: this.isi_komentar, id_artikel: this.id });
+        this.http.post("http://210.16.120.17/api/tulis_komentar.php", this.creds)
+            .subscribe(function (data) {
+            _this.response = data._body;
+            _this.nav.pop();
+        });
     };
     DiskusiPage = __decorate([
         ionic_angular_1.Page({
@@ -446,8 +478,8 @@ var NotificationPage = (function () {
         this.nav = nav;
         this.platform = platform;
     }
-    NotificationPage.prototype.diskusi = function () {
-        this.nav.push(diskusi_1.DiskusiPage);
+    NotificationPage.prototype.diskusi = function (diskusiId) {
+        this.nav.push(diskusi_1.DiskusiPage, diskusiId);
     };
     NotificationPage = __decorate([
         ionic_angular_1.Page({
@@ -471,25 +503,33 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ionic_angular_1 = require('ionic-angular');
+require('rxjs/add/operator/map');
+var http_1 = require('angular2/http');
 var profile_1 = require('../profile/profile');
 var PakarPage = (function () {
-    function PakarPage(nav) {
+    function PakarPage(http, platform, nav) {
+        var _this = this;
+        this.http = http;
+        this.platform = platform;
         this.nav = nav;
+        http.get('http://210.16.120.17/api/all_pakar.php').map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
     }
-    PakarPage.prototype.profile = function () {
-        this.nav.push(profile_1.ProfilePage);
+    PakarPage.prototype.profile = function (userId) {
+        this.nav.push(profile_1.ProfilePage, userId);
     };
     PakarPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/pakar/pakar.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [http_1.Http, ionic_angular_1.Platform, ionic_angular_1.NavController])
     ], PakarPage);
     return PakarPage;
 }());
 exports.PakarPage = PakarPage;
 
-},{"../profile/profile":11,"ionic-angular":354}],11:[function(require,module,exports){
+},{"../profile/profile":11,"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],11:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -501,27 +541,37 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var ionic_angular_1 = require('ionic-angular');
-/*
-  Generated class for the ProfilePage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
+require('rxjs/add/operator/map');
+var http_1 = require('angular2/http');
 var ProfilePage = (function () {
-    function ProfilePage(nav) {
+    function ProfilePage(http, nav, navParams) {
+        var _this = this;
+        this.http = http;
         this.nav = nav;
+        this.navParams = navParams;
+        this.id = navParams.data;
+        this.status = false;
+        http.get('http://210.16.120.17/api/pakar.php?idpakar=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
     }
+    ProfilePage.prototype.onPageWillEnter = function () {
+        var _this = this;
+        this.http.get('http://210.16.120.17/api/pakar.php?idpakar=' + this.id).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
+    };
     ProfilePage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/profile/profile.html',
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController])
+        __metadata('design:paramtypes', [http_1.Http, ionic_angular_1.NavController, ionic_angular_1.NavParams])
     ], ProfilePage);
     return ProfilePage;
 }());
 exports.ProfilePage = ProfilePage;
 
-},{"ionic-angular":354}],12:[function(require,module,exports){
+},{"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],12:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -808,19 +858,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var ionic_angular_1 = require('ionic-angular');
 var conference_data_1 = require('../../providers/conference-data');
+require('rxjs/add/operator/map');
+var http_1 = require('angular2/http');
 var notification_1 = require('../notification/notification');
 var tulis_artikel_1 = require('../tulis-artikel/tulis-artikel');
 var tulis_diskusi_1 = require('../tulis-diskusi/tulis-diskusi');
+var diskusi_1 = require('../diskusi/diskusi');
 var SpeakerListPage = (function () {
-    function SpeakerListPage(nav, confData, platform) {
+    function SpeakerListPage(nav, confData, platform, http) {
         this.nav = nav;
         this.platform = platform;
+        this.http = http;
         this.speakers = [];
         this.searchQuery = '';
-        this.initializeItems();
+        //this.initializeItems();
     }
     SpeakerListPage.prototype.notif = function () {
         this.nav.push(notification_1.NotificationPage);
+    };
+    SpeakerListPage.prototype.diskusi = function (diskusiId) {
+        this.nav.push(diskusi_1.DiskusiPage, diskusiId);
     };
     SpeakerListPage.prototype.openMenu = function () {
         var _this = this;
@@ -858,73 +915,41 @@ var SpeakerListPage = (function () {
         this.nav.present(actionSheet);
     };
     SpeakerListPage.prototype.initializeItems = function () {
-        this.items = [
-            'Amsterdam',
-            'Bogota',
-            'Buenos Aires',
-            'Cairo',
-            'Dhaka',
-            'Edinburgh',
-            'Geneva',
-            'Genoa',
-            'Glasglow',
-            'Hanoi',
-            'Hong Kong',
-            'Islamabad',
-            'Istanbul',
-            'Jakarta',
-            'Kiel',
-            'Kyoto',
-            'Le Havre',
-            'Lebanon',
-            'Lhasa',
-            'Lima',
-            'London',
-            'Los Angeles',
-            'Madrid',
-            'Manila',
-            'New York',
-            'Olympia',
-            'Oslo',
-            'Panama City',
-            'Peking',
-            'Philadelphia',
-            'San Francisco',
-            'Seoul',
-            'Taipeh',
-            'Tel Aviv',
-            'Tokio',
-            'Uelzen',
-            'Washington'
-        ];
+        var _this = this;
+        this.http.get('http://210.16.120.17/api/search.php?search=' + this.searchQuery).map(function (res) { return res.json(); }).subscribe(function (data) {
+            _this.posts = data;
+        });
     };
     SpeakerListPage.prototype.getItems = function (searchbar) {
-        // Reset items back to all of the items
+        // // Reset items back to all of the items
         this.initializeItems();
-        // set q to the value of the searchbar
-        var q = searchbar.value;
-        // if the value is an empty string don't filter the items
-        if (q.trim() == '') {
-            return;
-        }
-        this.items = this.items.filter(function (v) {
-            if (v.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-                return true;
-            }
-            return false;
-        });
+        //
+        // // set q to the value of the searchbar
+        // var q = searchbar.value;
+        //
+        // // if the value is an empty string don't filter the items
+        // if (q.trim() == '') {
+        //   return;
+        // }
+        //
+        // this.items = this.items.filter((v) => {
+        //   if (v.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        //     return true;
+        //   }
+        //   return false;
+        // })
     };
     SpeakerListPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/speaker-list/speaker-list.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, conference_data_1.ConferenceData, ionic_angular_1.Platform])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, conference_data_1.ConferenceData, ionic_angular_1.Platform, http_1.Http])
     ], SpeakerListPage);
     return SpeakerListPage;
 }());
 exports.SpeakerListPage = SpeakerListPage;
 
-},{"../../providers/conference-data":19,"../notification/notification":9,"../tulis-artikel/tulis-artikel":17,"../tulis-diskusi/tulis-diskusi":18,"ionic-angular":354}],16:[function(require,module,exports){
+},{"../../providers/conference-data":19,"../diskusi/diskusi":4,"../notification/notification":9,"../tulis-artikel/tulis-artikel":17,"../tulis-diskusi/tulis-diskusi":18,"angular2/http":24,"ionic-angular":354,"rxjs/add/operator/map":436}],16:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -985,6 +1010,7 @@ var TulisArtikelPage = (function () {
         this.http.post("http://210.16.120.17/api/tulis_artikel.php", this.creds)
             .subscribe(function (data) {
             _this.response = data._body;
+            _this.nav.pop();
         });
     };
     TulisArtikelPage = __decorate([
@@ -1015,13 +1041,15 @@ var TulisDiskusiPage = (function () {
     function TulisDiskusiPage(http, nav) {
         this.http = http;
         this.nav = nav;
+        this.response = 'test';
     }
     TulisDiskusiPage.prototype.kirim = function (http) {
         var _this = this;
-        this.creds = JSON.stringify({ isi_diskusi: this.isi_diskusi, judul_diskusi: this.judul_diskusi });
+        this.creds = JSON.stringify({ isi_artikel: this.isi_diskusi, judul_artikel: this.judul_diskusi });
         this.http.post("http://210.16.120.17/api/tulis_diskusi.php", this.creds)
             .subscribe(function (data) {
             _this.response = data._body;
+            _this.nav.pop();
         });
     };
     TulisDiskusiPage = __decorate([

@@ -1,0 +1,51 @@
+<ion-navbar *navbar primary>
+  <ion-title>Pencarian</ion-title>
+  <ion-buttons end>
+    <button (click)="diskusi()">
+      <ion-icon name="checkmark-circle" light></ion-icon>
+    </button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-content class="diskusi">
+  <img src="img/aaa.jpg">
+  <div padding-left *ngFor="#post of posts">
+    <h3 primary>
+      {{post.judul_artikel}}
+    </h3>
+    <p grey>
+      Oleh : {{post.nama_user_input}}. Pada 18 menit yang lalu.
+    </p>
+    <p class="text" [innerHTML]=post.isi_artikel>
+    </p>
+    <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon>  Lihat : {{post.total_baca}}</ion-badge>
+    <ion-badge item-right instagram> <ion-icon name="chatbubbles"></ion-icon>  Komentar : {{post.total_komentar}}</ion-badge>
+    <ion-badge item-right primary><ion-icon name="snow"></ion-icon> Padi </ion-badge>
+  </div>
+  <hr>
+
+  <p class="judul" padding-left instagram *ngIf="status==true">
+      Komentar :
+  </p>
+
+  <div *ngFor="#comment of comments">
+    <ion-card>
+      <ion-card-header class="midnight">
+        {{comment.nama_user}} <span class="grey"> - {{comment.tanggal_komentar}}</span>
+      </ion-card-header>
+      <ion-card-content [innerHTML]=comment.isi_komentar>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <p class="judul" padding-left instagram>
+      Tulis Komentar Anda Disini
+  </p>
+  <ion-card>
+    <ion-item>
+      <ion-textarea [(ngModel)]="tulis_komentar" placeholder="Ketik Komentar Disini" rows="10"></ion-textarea>
+    </ion-item>
+  </ion-card>
+
+
+</ion-content>

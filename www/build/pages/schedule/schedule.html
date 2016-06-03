@@ -51,17 +51,17 @@
   <ion-list>
     <a ion-item *ngFor="#post of posts" (click)="goToSessionDetail(post.id_artikel)">
       <ion-thumbnail item-left>
-        <img src="img/totoro.png">
+        <img src="img/aaa.jpg">
       </ion-thumbnail>
       <h2 primary>{{post.judul_artikel}}</h2>
       <p>{{post.nama_user_input}} | {{post.tanggal}}</p>
-      <p><ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: 2</ion-badge>
-      <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: 2</ion-badge>
+      <p><ion-badge item-right> <ion-icon name="chatbubbles"></ion-icon> Komentar: {{post.total_komentar}}</ion-badge>
+      <ion-badge item-right secondary> <ion-icon name="eye"></ion-icon> Dilihat: {{post.total_baca}}</ion-badge>
       </p>
     </a>
   </ion-list>
-  
-<!--  
+
+<!--
   <ion-list [hidden]="shownSessions === 0">
 
     <ion-item-group *ngFor="#group of groups" [hidden]="group.hide">

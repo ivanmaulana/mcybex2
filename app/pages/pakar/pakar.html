@@ -3,73 +3,21 @@
 </ion-navbar>
 
 <ion-content class="pakar">
-  
+
   <ion-list>
 
     <ion-list-header>
-    Pertanian
+    Pakar Pertanian
     </ion-list-header>
 
-    <button ion-item (click)="profile()">
+    <button ion-item *ngFor="#post of posts" (click)="profile(post.id_user)" >
       <ion-avatar item-left>
-        <img src="img/widodo.jpg">
+        <img src="img/profile.png">
       </ion-avatar>
-      <h2>Dr. Widodo</h2>
+      <h2>{{post.nama_user}}</h2>
       <h3>Institut Pertanian Bogor</h3>
-      <p>Padi - Hama - Penyakit</p>
+      <p>{{post.nama_topik_concat}}</p>
     </button>
 
-    <button ion-item (click)="profile()">
-      <ion-avatar item-left>
-        <img src="img/widodo.jpg">
-      </ion-avatar>
-      <h2>Dr. Widodo</h2>
-      <h3>Institut Pertanian Bogor</h3>
-      <p>Padi - Hama - Penyakit</p>
-    </button>
-    
-    <button ion-item (click)="profile()">
-      <ion-avatar item-left>
-        <img src="img/widodo.jpg">
-      </ion-avatar>
-      <h2>Dr. Widodo</h2>
-      <h3>Institut Pertanian Bogor</h3>
-      <p>Padi - Hama - Penyakit</p>
-    </button>
-
-  </ion-list>
-
-
-  <ion-list>
-    <ion-list-header>
-    Last Week
-    </ion-list-header>
-
-    <button ion-item (click)="profile()">
-      <ion-avatar item-left>
-        <img src="img/widodo.jpg">
-      </ion-avatar>
-      <h2>Dr. Widodo</h2>
-      <h3>Institut Pertanian Bogor</h3>
-      <p>Padi - Hama - Penyakit</p>
-    </button>
-
-    <button ion-item (click)="profile()">
-      <ion-avatar item-left>
-        <img src="img/widodo.jpg">
-      </ion-avatar>
-      <h2>Dr. Widodo</h2>
-      <h3>Institut Pertanian Bogor</h3>
-      <p>Padi - Hama - Penyakit</p>
-    </button>
-
-    <button ion-item (click)="profile()">
-      <ion-avatar item-left>
-        <img src="img/widodo.jpg">
-      </ion-avatar>
-      <h2>Dr. Widodo</h2>
-      <h3>Institut Pertanian Bogor</h3>
-      <p>Padi - Hama - Penyakit</p>
-    </button>
   </ion-list>
 </ion-content>

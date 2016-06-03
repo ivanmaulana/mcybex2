@@ -3,54 +3,54 @@
 </ion-navbar>
 
 <ion-content class="profile">
-  
-  <ion-card>
-
-  <ion-item>
-    <div text-center>
-      <img class="profil" src="img/widodo.jpg">
-    </div><br>
-    <div text-center>
-    <h2 primary>DR. Widodo</h2>
-    <p>Institut Pertanian Bogor</p>
-    </div>
-  </ion-item>
-
-  <ion-list>
-    <ion-item>
-      <div item-left>
-        <ion-icon name="book" primary></ion-icon>
-      </div>
-      <div padding-left>
-        <h2 primary>Kepakaran</h2>
-        <p>Padi - Hama - Penyakit</p>
-      </div>
-    </ion-item>
-    <ion-item>
-      <div item-left>
-        <ion-icon name="book" primary></ion-icon>
-      </div>
-      <div padding-left>
-        <h2 primary>Institusi</h2>
+  <div *ngFor="#post of posts">
+    <ion-card>
+      <ion-item>
+        <div text-center>
+          <img class="profil" src="img/profile.png">
+        </div><br>
+        <div text-center>
+        <h2 primary>{{post.nama_user}}</h2>
         <p>Institut Pertanian Bogor</p>
-      </div>
-    </ion-item>
-    <ion-item text-center>
-      <ion-grid>
-        <ion-row>
-          <ion-col width-50 text-center>
-            <h1 primary>50</h1>
-            <br> <p>Poin</p>
-          </ion-col>
-          <ion-col width-50 text-center>
-            <h1 primary>30</h1>
-            <br> <p>Tulisan / Diskusi</p>
-           </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-item>
-  </ion-list>
+        </div>
+      </ion-item>
 
-</ion-card>
-  
+      <ion-list>
+        <ion-item>
+          <div item-left>
+            <ion-icon name="book" primary></ion-icon>
+          </div>
+          <div padding-left>
+            <h2 primary>Kepakaran</h2>
+            <p>{{post.ket_user}}</p>
+          </div>
+        </ion-item>
+        <ion-item>
+          <div item-left>
+            <ion-icon name="book" primary></ion-icon>
+          </div>
+          <div padding-left>
+            <h2 primary>Institusi</h2>
+            <p>Institut Pertanian Bogor</p>
+          </div>
+        </ion-item>
+        <ion-item text-center>
+          <ion-grid>
+            <ion-row>
+              <ion-col width-50 text-center>
+                <h1 primary>50</h1>
+                <br> <p>Poin</p>
+              </ion-col>
+              <ion-col width-50 text-center>
+                <h1 primary>30</h1>
+                <br> <p>Tulisan / Diskusi</p>
+               </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </div>
+
+
 </ion-content>

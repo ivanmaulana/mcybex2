@@ -13,18 +13,19 @@ export class TulisArtikelPage {
   judul_artikel: string;
   response: any;
   creds: string;
-  
+
   constructor(public http: Http, public nav: NavController) {
     this.response = 'test';
-    
+
   }
-  
+
   kirim(http: Http){
       this.creds = JSON.stringify({isi_artikel: this.isi_artikel, judul_artikel: this.judul_artikel});
       this.http.post("http://210.16.120.17/api/tulis_artikel.php", this.creds)
-          .subscribe(data => {          
+          .subscribe(data => {
                   this.response = data._body;
+                  this.nav.pop();
       });
   }
-  
+
 }

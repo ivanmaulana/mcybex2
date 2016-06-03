@@ -8666,6 +8666,12 @@ ion-item[track=navigation] .dot {
 .action-sheets-basic-page .action-sheet-destructive ion-icon {
   color: #757575; }
 
+.text {
+  font-size: 15px; }
+
+.judul {
+  font-size: 18px; }
+
 img {
   width: 100%;
   max-height: 40%; }
@@ -8681,7 +8687,7 @@ img {
   font-size: 12px; }
 
 .midnight {
-  color: #34495e; }
+  color: #16a085; }
 
 img {
   width: 100%;
@@ -8698,7 +8704,7 @@ img {
   font-size: 12px; }
 
 .midnight {
-  color: #34495e; }
+  color: #16a085; }
 
 ion-avatar {
   height: 120%; }
@@ -8710,3 +8716,20 @@ ion-avatar {
 
 .judul {
   font-size: 20px; }
+
+img {
+  width: 100%;
+  max-height: 40%; }
+
+.text {
+  font-size: 15px; }
+
+.judul {
+  font-size: 18px; }
+
+.grey {
+  color: #7f8c8d;
+  font-size: 12px; }
+
+.midnight {
+  color: #16a085; }

@@ -10,17 +10,25 @@
 
     <ion-list>
       <ion-list-header>
-        Navigate
+        Halaman
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of appPages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
       </button>
+      <button ion-item menuClose (click)="pakar()">
+        <ion-icon item-left name="contact"></ion-icon>
+        Pakar
+      </button>
+      <button ion-item menuClose (click)="kegiatan()">
+        <ion-icon item-left name="home"></ion-icon>
+        Kegiatan
+      </button>
     </ion-list>
 
     <ion-list *ngIf="loggedIn">
       <ion-list-header>
-        Account
+        Akun
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of loggedInPages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
@@ -30,23 +38,11 @@
 
     <ion-list *ngIf="!loggedIn">
       <ion-list-header>
-        Account
+        Akun
       </ion-list-header>
       <button ion-item menuClose *ngFor="#p of loggedOutPages" (click)="openPage(p)">
         <ion-icon item-left [name]="p.icon"></ion-icon>
         {{p.title}}
-      </button>
-    </ion-list>
-    
-    <ion-list *ngIf="!loggedIn">
-      <ion-list-header>
-        Test
-      </ion-list-header>
-      <button ion-item menuClose (click)="pakar()">
-        Pakar
-      </button>
-      <button ion-item menuClose (click)="kegiatan()">
-        Kegiatan
       </button>
     </ion-list>
   </ion-content>

@@ -1,10 +1,14 @@
 import {Platform, NavController, Page, ActionSheet} from 'ionic-angular';
 import {ConferenceData} from '../../providers/conference-data';
+import 'rxjs/add/operator/map';
+import {Http} from 'angular2/http';
+import { bootstrap } from "angular2/platform/browser";
 import {SpeakerDetailPage} from '../speaker-detail/speaker-detail';
 import {SessionDetailPage} from '../session-detail/session-detail';
 import {NotificationPage} from '../notification/notification';
 import {TulisArtikelPage} from '../tulis-artikel/tulis-artikel';
 import {TulisDiskusiPage} from '../tulis-diskusi/tulis-diskusi';
+import {DiskusiPage} from '../diskusi/diskusi';
 
 
 @Page({
@@ -15,13 +19,18 @@ export class SpeakerListPage {
   speakers = [];
   searchQuery: string = '';
   items;
+  posts: any;
 
-  constructor(private nav: NavController, confData: ConferenceData, public platform: Platform) {
-    this.initializeItems();
+  constructor(private nav: NavController, confData: ConferenceData, public platform: Platform, public http: Http) {
+    //this.initializeItems();
   }
-  
+
   notif(){
     this.nav.push(NotificationPage);
+  }
+
+  diskusi(diskusiId){
+    this.nav.push(DiskusiPage, diskusiId);
   }
 
   openMenu() {
@@ -59,66 +68,32 @@ export class SpeakerListPage {
 
     this.nav.present(actionSheet);
   }
-  
+
   initializeItems() {
-    this.items = [
-      'Amsterdam',
-      'Bogota',
-      'Buenos Aires',
-      'Cairo',
-      'Dhaka',
-      'Edinburgh',
-      'Geneva',
-      'Genoa',
-      'Glasglow',
-      'Hanoi',
-      'Hong Kong',
-      'Islamabad',
-      'Istanbul',
-      'Jakarta',
-      'Kiel',
-      'Kyoto',
-      'Le Havre',
-      'Lebanon',
-      'Lhasa',
-      'Lima',
-      'London',
-      'Los Angeles',
-      'Madrid',
-      'Manila',
-      'New York',
-      'Olympia',
-      'Oslo',
-      'Panama City',
-      'Peking',
-      'Philadelphia',
-      'San Francisco',
-      'Seoul',
-      'Taipeh',
-      'Tel Aviv',
-      'Tokio',
-      'Uelzen',
-      'Washington'
-    ];
+
+    this.http.get('http://210.16.120.17/api/search.php?search='+this.searchQuery).map(res => res.json()).subscribe(data => {
+        this.posts = data;
+    });
+
   }
 
   getItems(searchbar) {
-    // Reset items back to all of the items
+    // // Reset items back to all of the items
     this.initializeItems();
-
-    // set q to the value of the searchbar
-    var q = searchbar.value;
-
-    // if the value is an empty string don't filter the items
-    if (q.trim() == '') {
-      return;
-    }
-
-    this.items = this.items.filter((v) => {
-      if (v.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-        return true;
-      }
-      return false;
-    })
+    //
+    // // set q to the value of the searchbar
+    // var q = searchbar.value;
+    //
+    // // if the value is an empty string don't filter the items
+    // if (q.trim() == '') {
+    //   return;
+    // }
+    //
+    // this.items = this.items.filter((v) => {
+    //   if (v.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+    //     return true;
+    //   }
+    //   return false;
+    // })
   }
 }
